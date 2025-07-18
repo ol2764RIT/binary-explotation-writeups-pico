@@ -2,6 +2,8 @@
 
 **Flag**: `picoCTF{Co-@utH0r_Of_Sy5tem_b!n@riEs_fc0640ae}`
 
+This is done on the PicoCTF servers which actually prohibit us from using GDB but we can assume that flaghasher works exactly the same as it did on Hash-Only-1. 
+
 ## Solution
 
 We start in rbash but can escape with:
