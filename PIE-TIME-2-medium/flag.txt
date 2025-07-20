@@ -1,1 +1,3 @@
 hello_chat_pt2
+
+picoCTF{p13_5h0u1dn'7_134k_71356635}
