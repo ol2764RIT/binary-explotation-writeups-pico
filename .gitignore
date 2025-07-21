@@ -1,2 +1,3 @@
 *.gpr
 *.rep
+*.lock
