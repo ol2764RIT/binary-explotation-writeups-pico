@@ -1,5 +1,3 @@
----
-
 ### **Exploit Cheat Sheet**
 
 #### 1. Format String Vulnerability
@@ -98,5 +96,3 @@
 * **Tactics:**
 
   * Exploit timing to swap files or resources.
-
----
