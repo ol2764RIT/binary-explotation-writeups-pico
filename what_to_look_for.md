@@ -1,9 +1,9 @@
 Exploit Cheat Sheet
 1. Format String Vulnerability
 
-    What: printf(user_input) without format string sanitization.
+    What: `printf(user_input)` without format string sanitization.
 
-    Look for: Direct printf(buf) or similar calls.
+    Look for: Direct `printf(buf)` or similar calls.
 
     Impact:
 
