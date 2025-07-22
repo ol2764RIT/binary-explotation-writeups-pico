@@ -1,17 +1,36 @@
-### **Exploit Cheat Sheet**
+Exploit Cheat Sheet
+1. Format String Vulnerability
 
-#### 1. Format String Vulnerability
+    What: printf(user_input) without format string sanitization.
 
-* **What:** `printf(user_input)` without format string sanitization.
-* **Look for:** Direct `printf(buf)` or similar calls.
-* **Impact:**
+    Look for: Direct printf(buf) or similar calls.
 
-  * Leak memory with `%x`, `%p` (stack, libc addresses).
-  * Write arbitrary memory with `%n`.
-* **Tactics:**
+    Impact:
 
-  * Leak GOT or stack addresses to defeat ASLR.
-  * Overwrite GOT entry or function pointers to redirect flow.
+        Leak memory with %x, %p (stack, libc, or binary addresses).
+
+        Write arbitrary memory with %n.
+
+    Tactics:
+
+        Leak GOT or stack addresses to defeat ASLR.
+
+        Overwrite GOT entry or function pointers to redirect flow.
+
+        Use %[offset]$p to find controlled input offset (%1$p to %40$p).
+
+        Identify address types:
+
+            0x55... → PIE (binary code/data)
+
+            0x56... → Heap
+
+            0x7f... → Libc
+
+            0x7fff... → Stack
+
+        Use known marker input (e.g., AAAABBBB) to find where input lands on the stack.
+
 
 #### 2. Stack-based Buffer Overflow
 
