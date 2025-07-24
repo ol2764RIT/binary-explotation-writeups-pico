@@ -14,26 +14,26 @@ safe_var = malloc(SAFE_VAR_SIZE);      // 5 bytes
 The heap allocates sequentially, so `safe_var` comes right after `input_data`.
 
 Using option 1 to print the heap confirms the layout and shows the distance between buffers.
----
+
 ### Step 2: Calculate overflow distance
 `safe_var` starts 34 bytes away from `input_data`:
 * 32 bytes of actual distance
 * 2 spacing bytes (likely heap metadata/alignment)
 
 So we need exactly 32 bytes of padding + our target string "pico".
----
+
 ### Step 3: Craft the payload
 ```python
 payload = "X" * 32 + "pico"
 ```
 This fills the 32-byte gap and overwrites `safe_var` with "pico".
----
+
 ### Step 4: Trigger win condition
 1. Choose option 2 (Write to buffer)
 2. Send the payload: `XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXpico`
 3. Choose option 4 (Print Flag)
 4. The `check_win()` function compares `safe_var` with "pico" and prints the flag
----
+
 ## Key Points
 * Heap buffers allocated sequentially: `input_data` then `safe_var`
 * `scanf("%s")` has no bounds checking → buffer overflow
