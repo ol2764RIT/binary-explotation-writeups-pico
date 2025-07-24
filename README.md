@@ -10,6 +10,14 @@ Personal project exploiting PicoCTF binary challenges to develop vulnerability r
 > This work is strictly for ethical skill development and legal, academic purposes.  
 > I do not condone or engage in any unauthorized or malicious activity.
 
+## Important Note
+
+Each challenge folder is structured to include the relevant binary and its corresponding `exploit.py` script, where applicable.  
+If a folder does **not** include an `exploit.py`, it's either:
+
+- A **trivial challenge** not requiring a custom exploit, or  
+- A challenge that was **hosted on PicoCTF's remote servers**, where local exploitation wasn’t possible.
+
 ## What I'm Learning
 
 **Reverse Engineering**
