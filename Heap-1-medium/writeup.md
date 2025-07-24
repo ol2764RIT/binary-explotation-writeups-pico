@@ -1,9 +1,9 @@
 # Heap1 Writeup
 **Flag:** `picoCTF{starting_to_get_the_hang_79ee3270}`
----
+
 ## Summary
 The binary allocates two heap buffers: `input_data` (5 bytes) and `safe_var` (5 bytes). There's a buffer overflow in `write_buffer()` using `scanf("%s", input_data)` with no bounds checking. We can overflow from `input_data` into `safe_var` to overwrite it with "pico" and trigger the win condition.
----
+
 ## Exploit Strategy
 ### Step 1: Analyze heap layout
 Looking at the allocation order in `init()`:
