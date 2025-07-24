@@ -2,6 +2,14 @@
 
 Personal project exploiting PicoCTF binary challenges to develop vulnerability research and reverse engineering skills.
 
+> **Disclaimer**
+>
+> This repository contains writeups, exploit scripts, and research based solely on **educational Capture The Flag (CTF) challenges**, primarily from **picoCTF**.  
+> All binaries involved are intentionally vulnerable and executed in sandboxed environments.  
+> No real-world software, services, or systems were targeted.  
+> This work is strictly for ethical skill development and legal, academic purposes.  
+> I do not condone or engage in any unauthorized or malicious activity.
+
 ## What I'm Learning
 
 **Reverse Engineering**
