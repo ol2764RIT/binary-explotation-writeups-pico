@@ -7,6 +7,7 @@
 The binary runs as root but requires the `SECRET_DIR` environment variable to be set. It uses `system("ls $SECRET_DIR")`, allowing control over the command run as root if both `SECRET_DIR` and `PATH` are manipulated.
 
 ## Exploit Strategy
+0. Placed into `rbash`, escape from `rbash` by typing `bash`
 
 1. Running `./bin` without setting `SECRET_DIR` returns an error.
 
