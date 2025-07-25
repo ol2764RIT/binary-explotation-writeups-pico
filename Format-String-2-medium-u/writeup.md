@@ -1,7 +1,11 @@
-cool addresses
+looked at vuln.c
 
-0x7ffe34a27920?
+we need to set sus the global int to match that conditional
+global ints are not on the stack
 
-14 is offset for fmtstr payload
+objdump -t ./vuln | grep sus 
+for the address of sus 
 
-0x0404060 ghidra addr for sus
+No pie so this is easy, we could also used gdb/ghidra/etc. 
+
+flag!
