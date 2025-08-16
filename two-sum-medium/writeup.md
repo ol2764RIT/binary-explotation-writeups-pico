@@ -1,17 +1,23 @@
-integer underflow technique to allow for 
+# Two Sum Writeup
 
-n1 > n1 + n2
+**Flag:** `picoCTF{Tw0_Sum_Integer_Bu773R_0v3rfl0w_76f333c8}`
 
-lets make n1 int max
-lets make n2 1
+## Summary
 
-overflows?
+This challenge features a basic integer overflow. The goal is to satisfy the condition that `n1 > n1 + n2` in order to pass a condition and print the flag.
 
-tropic@vulcan:~/projects/RE-writeups/two-sum-medium$ nc saturn.picoctf.net 51329
-n1 > n1 + n2 OR n2 > n1 + n2 
-What two positive numbers can make this possible: 
-2147483647
-1
-You entered 2147483647 and 1
-You have an integer overflow
-YOUR FLAG IS: picoCTF{Tw0_Sum_Integer_Bu773R_0v3rfl0w_76f333c8}
+## Vulnerability
+
+## Exploit Strategy
+
+1. Assign a value of int max to the digit `n1`
+2. Assign any abritrary value for `n2` such that the condition of `n1 > n1 + n2` is satisfied
+
+## Exploit Payload
+
+The exploit is fairly rudamentary so it is not needed for a automation.
+
+## Final Notes
+
+* No check of INT_MAX to fufill condition makes it vulnerable to these types of issues.
+* Author should implement a check for int_max to never leak flag!
