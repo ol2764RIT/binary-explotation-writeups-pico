@@ -1,6 +1,5 @@
 all:
 	gcc -m64 -fno-stack-protector -O0 -no-pie -static -o vuln vuln.c
-	gcc -FPIC -shared src/rand_hijack.c -o rand_hijack.so
 
 clean:
 	rm vuln
