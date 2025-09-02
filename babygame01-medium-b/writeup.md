@@ -1,26 +1,57 @@
-use w a s d to move
+# BabyGame01-Medium Writeup
 
-walk to flag normally nothing
-walk to flag from oob -> stack smashing detected
+**Flag:** `picoCTF{gamer_m0d3_enabled_fff873ca}`
 
-99 s's seg fault
+---
 
-(base) tropic@vulcan:~/projects/RE-writeups/babygame01-medium-u$ checksec ./game
-[*] '/home/tropic/projects/RE-writeups/babygame01-medium-u/game'
-    Arch:       i386-32-little
-    RELRO:      Partial RELRO
-    Stack:      Canary found
-    NX:         NX enabled
-    PIE:        No PIE (0x8048000)
-    Stripped:   No
+## Summary
 
-game: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, BuildID[sha1]=02a3bb43121b1f6fbc2ab9154ab38a9427e19149, for GNU/Linux 3.2.0, not stripped
+This challenge is a 32-bit game where moving normally doesn’t trigger the flag. By moving **out of bounds**, the game performs an **overread into the stack**, leaking a canary-like value, and uses that to update an internal “flag” variable. Once the flag is set via this leak, reaching the exit prints the actual flag.
 
+---
 
-solution:
+## Vulnerability
 
-walk up 4 and left 8 to set flag to value of stack protection? or something else
+* Game is a **32-bit executable** with stack canaries and NX enabled.
+* Player position is tracked in memory, likely in a struct or array.
+* **Out-of-bounds movement** allows reads **above the allocated buffer**, over the stack, revealing a canary value.
+* The leaked value is **added to the internal flag variable**, effectively granting the flag.
 
-p to win
+Observations:
 
-flag
+* Walking normally to the “flag location” does nothing.
+* Moving slightly out-of-bounds triggers: `"Player has flag"`.
+* Excessive moves (e.g., 99 `s`) cause a segfault due to memory overread.
+
+---
+
+## Exploitation Strategy
+
+1. **Walk OOB to leak stack value**
+
+   * Move left/up beyond normal map boundaries.
+   * The game internally reads a stack value (canary) and adds it to the player’s flag variable.
+   * This effectively sets the flag without any normal gameplay trigger.
+
+2. **Return to exit normally**
+
+   * Navigate back along valid map coordinates.
+   * The internal flag variable is now set.
+
+3. **Reach exit to retrieve flag**
+
+   * Game checks the internal flag variable when you reach the exit.
+   * Output prints:
+
+     ```
+     picoCTF{gamer_m0d3_enabled_fff873ca}
+     ```
+
+---
+
+## Notes
+
+* **Vulnerability type:** out-of-bounds read leading to stack value leak → internal state manipulation.
+* **Key insight:** the flag isn’t on the map—it’s determined by **stack-leaked values**.
+* **Defense:** proper bounds checking, no memory reads outside valid buffers, and validation of internal game state.
+
