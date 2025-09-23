@@ -29,14 +29,12 @@ def execute(input_array: bytes, char_count: int) -> bytes:
     return bytes(aligned_buffer)
 
 def main():
-    our_input = asm(shellcraft.i386.linux.sh())
-    our_input_len = len(our_input)
+    
 
-    output = execute(our_input, our_input_len)
-    hex_output = ' '.join(f'{b:02x}' for b in output)
-    print(hex_output)
-    original_output = ' '.join(f'{b:02x}' for b in our_input)
-    print(our_input)
+    # Output final shellcode
+    print(f"Length: {len(shellcode)} bytes")
+    print(enhex(shellcode))
+
 
 
 if __name__ == "__main__":
